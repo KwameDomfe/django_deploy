@@ -2,4 +2,5 @@ from django.apps import AppConfig
 
 
 class DeployConfig(AppConfig):
-    name = 'deploy'
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'apps.deploy'
