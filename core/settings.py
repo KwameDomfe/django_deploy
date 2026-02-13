@@ -54,10 +54,11 @@ ALLOWED_HOSTS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://*.hungrypies.com",       
+    "https://*.hungrypies.com", 
+    "https://*.django-deploy-app-b6mm7.ondigitalocean.app"      
 ]
 if DEBUG:
-    ALLOWED_HOSTS = config('DJANGO_ALLOWED_HOSTS', 
+    ALLOWED_HOSTS += config('DJANGO_ALLOWED_HOSTS', 
         default='localhost,127.0.0.1', 
         cast=lambda v: [s.strip() for s in v.split(',')]\
     )
