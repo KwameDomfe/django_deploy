@@ -49,7 +49,8 @@ DEBUG = config(
 ALLOWED_HOSTS = [
     # "hungrypies.com",
     # "www.hungrypies.com",
-    ".railway.app",
+   "django-deploy-app-b6mm7.ondigitalocean.app",
+    # ".railway.app",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
