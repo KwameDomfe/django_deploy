@@ -1,3 +1,32 @@
-<h1>
-  Hello Deploy
-</h1>
+<body>
+
+  <header> 
+  <h1>
+    Hello Deploy
+  </h1>
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/deploy/">Deployments</a></li>
+    </ul>
+  </nav>
+  </header>
+
+  <main>
+    <p>Welcome to the deployment page. Here you can find all the recent deployments.</p>
+    <hr>
+      {% for deployment in deployments %}
+        <div>
+          <h2>{{ deployment.name }}</h2>
+          <p>{{ deployment.description }}</p>
+          <small>Created at: {{ deployment.created_at }}</small>
+        </div>
+      {% endfor %}
+    <hr> 
+  </main>
+
+  <footer>
+    <p>Copyright &copy; 2024</p>  
+  </footer>
+
+</body>
