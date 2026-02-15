@@ -10,3 +10,12 @@ def home(request):
     }   
 
     return render(request, 'deploy/index.html', context )
+
+def deployment_detail(request, deployment_id):
+    deployment = Deployment.objects.get(id=deployment_id)
+
+    context = {
+        'deployment': deployment
+    }
+
+    return render(request, 'deploy/deployment_detail.html', context)

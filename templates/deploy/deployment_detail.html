@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Deployment Detail{% endblock %}
+{% block content %}
+  <header>
+    <h1>{{ deployment.name }}</h1>
+  </header>
+  <main>
+    <hr>
+    <p>{{ deployment.description }}</p>
+    <small>Created at: {{ deployment.created_at }}</small>
+    <hr> 
+  </main>
+
+  <footer>
+    <p>Copyright &copy; 2024</p>  
+  </footer>
+
+{% endblock %}

@@ -1,32 +1,31 @@
-<body>
+{% extends "base.html" %}
 
-  <header> 
-  <h1>
-    Hello Deploy
-  </h1>
-  <nav>
-    <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="/deploy/">Deployments</a></li>
-    </ul>
-  </nav>
-  </header>
-
-  <main>
-    <p>Welcome to the deployment page. Here you can find all the recent deployments.</p>
+{% block title %}Deployment Dashboard{% endblock %}
+{% block content %}
+<header>
+    page header
+    <h1>Deployment Dashboard</h1>
+</header>
+<main>
     <hr>
-      {% for deployment in deployments %}
-        <div>
-          <h2>{{ deployment.name }}</h2>
-          <p>{{ deployment.description }}</p>
-          <small>Created at: {{ deployment.created_at }}</small>
-        </div>
-      {% endfor %}
+    <p>Welcome to the deployment page. Here you can find all the recent deployments.</p>
+
+    {% for deployment in deployments %}
+        <a href="{% url 'deployment_detail' deployment.id %}" 
+        class="deployment-item"
+        >
+        <h2>{{ deployment.name }}</h2>
+        <p>{{ deployment.description }}</p>
+        <small>Created at: {{ deployment.created_at }}</small>
+        </a>
+    {% endfor %}
+
     <hr> 
-  </main>
+</main>
 
-  <footer>
+<footer>
+deploy page footer
     <p>Copyright &copy; 2024</p>  
-  </footer>
+</footer>
 
-</body>
+{% endblock %}

@@ -3,7 +3,7 @@ from django.http import HttpResponse
 
 def hello_world(request):
   context = {}
-  return render(request, "hello_world.html", context)
+  return render(request, "index.html", context)
 
 def health_check(request):
     return HttpResponse("OK")
