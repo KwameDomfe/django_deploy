@@ -1,0 +1,39 @@
+1. check confirm and adopt
+  a.  python version
+  b.  django version
+
+2.  create project directory andsetup python virtual environment
+  >>>  py -m venv venv
+    And activate
+  >>> venv/scripts/activate
+
+3. Install Package(s) for the project
+  >>> pip install < packageName=>x.xx, <=x.xx >
+
+4.  Start project
+  >>> django-admin startproject core 
+
+5. Start Server\
+  >>> py manage.py runserver
+
+6. Configure git gitignore and github repo
+  search for python gitignore and copy and paste
+  *** search for nodejs gitignore for react and copy and paste
+  >>> git init
+  >>> git add .
+  >>> git commit -m "Initial Commit for the project"
+  >>> git branch -M main
+  >>> git reomote add origin <repo path>
+  >>> git reomote remove origin <repo path>
+  >>> git remote -v
+  >>> fit push -u origin main
+
+7. Managing Secrets with Environment Variables
+
+  >>>  SECRET_KEY=
+
+  >>>  DEBUG=
+
+  >>>  ALLOWED_HOSTS=
+
+

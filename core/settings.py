@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 from pathlib import Path
 from decouple import config
+# import dj_database_url
 
 
 from django.core.management.utils import get_random_secret_key
@@ -34,8 +35,6 @@ SECRET_KEY = config(
     default=get_random_secret_key()
 )
 
-
-
 # This will print a new random secret key each time the server starts, which is not ideal for production. 
 # Make sure to set a fixed secret key in your .env file for production use.
 
@@ -47,18 +46,24 @@ DEBUG = config(
 )
 
 ALLOWED_HOSTS = [
-   "django-deploy-app-b6mm7.ondigitalocean.app",
-    # ".railway.app",
+    "django-deploy-app-b6mm7.ondigitalocean.app",
+    "www.django-deploy-app-b6mm7.ondigitalocean.app",
+    "project.kdadesign.tech",
+    "www.project.kdadesign.tech",
+    "127.0.0.1",
+    "localhost",
 ]
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://*.django-deploy-app-b6mm7.ondigitalocean.app"      
-]
 if DEBUG:
-    ALLOWED_HOSTS += config('DJANGO_ALLOWED_HOSTS', 
-        default='localhost,127.0.0.1', 
-        cast=lambda v: [s.strip() for s in v.split(',')]\
-    )
+  ALLOWED_HOSTS = ["*"]
+
+# Cross Site Request Forgery (CSRF) Trusted Origins
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.django-deploy-app-b6mm7.ondigitalocean.app",
+]
+
+
+
 
 # Application definition
 
@@ -114,7 +119,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
