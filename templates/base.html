@@ -9,9 +9,11 @@
      
       {% endblock %}
     </title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static '/css/gdb_normalize.css' %}">
+    <link rel="stylesheet" href="{% static '/css/utilities.css' %}">
+    <link rel="stylesheet" href="{% static '/css/style.css' %}">
   </head>
-  <body>
+  <body class="container container80">
     <header>
       {% include 'mainHeader.html' %}
     </header>

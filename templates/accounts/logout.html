@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Logout{% endblock %}
+
+{% block content %}
+
+<section class="flex shadow-4 pa1-00 h-100 mv6-00">
+    <div class="flex w-50 min-vh-50">
+        <div class="w-100 h-100 flex flex-column">
+            <hgroup class="w-100 tc pv1-00">
+                <h1 class="mv0-00 ">Logout</h1>
+            </hgroup>
+            {% if request.user.is_authenticated %}  
+            <div>
+                <p>Are you sure you want to logout?</p>
+                <form method="post"
+                class="mb2-00"
+                >{% csrf_token %}
+                    <button type="submit" class="pa0-25 ba b0 bg-red b--white white-90 br0-25 pointer">
+                    Yes, I want to logout.
+                    </button>
+                    <a href="{% url 'deploy:home' %}"
+                    class="ba br0-25 red pa0-25"  
+                    >
+                    Cancel
+                    </a>
+                </form>
+                <p>New here? <a href="{% url 'accounts:register' %}"
+                    class="ba black-90 red br0-25 pa0-25"
+                >
+                Create an account</a>.
+                </p>
+            </div>
+            {%else%}
+            <div class="w-100
+                pv2-00 tc"
+            >
+                <p class="">You are not logged in.</p>
+                <p> Would you like to 
+                    <a href="{% url 'accounts:login' %}"                    
+                        class="pv0-25 ph0-50 
+                        white-90 b ba b--red br0-25 
+                        bg-red ttu"
+                    >
+                        login 
+                    </a> &nbsp;?
+                </p>
+            </div>
+            {%endif%}
+        </div>
+    </div>
+  
+    <div class="flex w-50 bg-red">
+
+    </div> 
+
+</section>
+{% endblock %}

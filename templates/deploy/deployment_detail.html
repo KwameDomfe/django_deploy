@@ -6,19 +6,123 @@
 {% endblock %}
 
 {% block content %}
-  <header>
-    <h1>{{ deployment.name }}</h1>
-  </header>
-  
-  <main>
-    <hr>
-    <p>{{ deployment.description }}</p>
-    <small>Created at: {{ deployment.created_at }}</small>
-    <hr> 
-  </main>
+  <article class="pv2-00">
+    <header class="bg-black-50">
+      <h1>{{ deployment.name }}</h1>
+    </header>
+    
+    <main>
+      <hr>
+      {% if deployment.image %}
+        <img src="{{ deployment.image.url }}" 
+          alt="{{ deployment.name }} image"
+          class="cover h16-00"
+        />
+      {% endif %}
+      <p>{{ deployment.description }}</p>
+      <small>Created at: {{ deployment.created_at }}</small>
+      <p>
+        <a href="{% url 'deploy:deployment_delete' deployment.slug %}" class="red mr1-00">Delete</a>
+        <a href="{% url 'deploy:home' %}"
+          class="red"
+        >
+          back to list
+        </a>
+      </p>
 
-  <footer>
-    <p>{{ deployment.name }} Page Footer</p>  
-  </footer>
+      <section id="inline-edit-panel" style="display: none; margin-top: 1rem;">
+        <h2>Edit Deployment</h2>
+        <form method="post" action="{% url 'deploy:deployment_update' deployment.slug %}" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <p>
+            <label for="{{ form.name.id_for_label }}">Name</label>
+            {{ form.name }}
+          </p>
+
+          <p>
+            <label for="{{ form.image.id_for_label }}">Image</label>
+            {{ form.image }}
+          </p>
+
+          <div id="inline-image-preview-wrapper">
+            <p><strong>Image preview</strong></p>
+            {% if deployment.image %}
+              <img
+                id="inline-image-preview"
+                src="{{ deployment.image.url }}"
+                alt="Current deployment image"
+                style="max-width: 280px; height: auto; display: block; border: 1px solid #d3d3d3;"
+              >
+            {% else %}
+              <img
+                id="inline-image-preview"
+                src=""
+                alt="Selected image preview"
+                style="max-width: 280px; height: auto; display: none; border: 1px solid #d3d3d3;"
+              >
+              <small id="inline-image-preview-empty">No image selected.</small>
+            {% endif %}
+          </div>
+
+          <p>
+            <label for="{{ form.description.id_for_label }}">Description</label>
+            {{ form.description }}
+          </p>
+
+          <button type="submit">Save Changes</button>
+          <button type="button" id="cancel-inline-edit">Cancel</button>
+        </form>
+      </section>
+      <hr> 
+    </main>
+
+    <footer>
+      <p>{{ deployment.name }} Page Footer</p>  
+    </footer>
+  </article>
+
+  <script>
+    (function () {
+      var panel = document.getElementById('inline-edit-panel');
+      var openBtn = document.getElementById('toggle-inline-edit');
+      var closeBtn = document.getElementById('cancel-inline-edit');
+      var imageInput = document.getElementById('{{ form.image.auto_id }}');
+      var preview = document.getElementById('inline-image-preview');
+      var emptyState = document.getElementById('inline-image-preview-empty');
+
+      if (openBtn && panel) {
+        openBtn.addEventListener('click', function () {
+          panel.style.display = 'block';
+        });
+      }
+
+      if (closeBtn && panel) {
+        closeBtn.addEventListener('click', function () {
+          panel.style.display = 'none';
+        });
+      }
+
+      if (!imageInput || !preview) {
+        return;
+      }
+
+      imageInput.addEventListener('change', function (event) {
+        var file = event.target.files && event.target.files[0];
+        if (!file) {
+          return;
+        }
+
+        var objectUrl = URL.createObjectURL(file);
+        preview.src = objectUrl;
+        preview.style.display = 'block';
+
+        if (emptyState) {
+          emptyState.style.display = 'none';
+        }
+      });
+    })();
+  </script>
+  
 
 {% endblock %}

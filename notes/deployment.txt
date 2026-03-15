@@ -37,3 +37,28 @@
   >>>  ALLOWED_HOSTS=
 
 
+8. Production Environment Variables (current project)
+
+  Required:
+  >>> DJANGO_SECRET_KEY=<your-secret-key>
+  >>> DJANGO_DEBUG=0
+  >>> DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1,<your-domain>
+
+  Security defaults (optional overrides):
+  >>> SECURE_HSTS_SECONDS=31536000
+  >>> SECURE_HSTS_INCLUDE_SUBDOMAINS=1
+  >>> SECURE_HSTS_PRELOAD=1
+  >>> SECURE_SSL_REDIRECT=1
+  >>> SESSION_COOKIE_SECURE=1
+  >>> CSRF_COOKIE_SECURE=1
+
+  Optional DB for managed PostgreSQL:
+  >>> DATABASE_URL=postgres://<user>:<password>@<host>:<port>/<database>
+
+9. Deployment validation commands
+
+  >>> python manage.py check
+  >>> python manage.py check --deploy
+  >>> python manage.py migrate
+
+

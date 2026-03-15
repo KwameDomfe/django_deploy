@@ -1,11 +1,25 @@
-<article> 
-  <h1>
-    Hello Deploy
-  </h1>
-  <nav>
-    <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="/deploy/">Deployments</a></li>
-    </ul>
-  </nav>
-  </article>
+{% load account_extras %}
+<article class="flex justify-between items-center"> 
+    <a href="/">
+        <h1 class="red">
+            Hello Deploy
+        </h1>
+    </a>
+    <nav class="flex justify-end w-50">
+        <ul class="flex">
+        <li><a href="/deploy/"
+            class="red"
+            >Deployments</a></li>
+        {% if user.is_authenticated %}
+        <li class="ml1-00 mr1-00">
+            <span class="red">{{ user.username }} || {{ user|user_role }}</span>
+        </li>
+        <li>
+            <a href="{% url 'accounts:logout' %}" class="red">Logout</a>
+        </li>
+        {% else %}
+        <li class="ml1-00"><a href="{% url 'accounts:login' %}" class="red">Login</a></li>
+        {% endif %}
+        </ul>
+    </nav>
+</article>

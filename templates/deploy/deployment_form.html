@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+  <header>
+    <h1>{{ page_title }}</h1>
+  </header>
+
+  <main class="mv2-00 ">
+    <hr>
+    <form method="post" 
+      enctype="multipart/form-data"
+        class="pv2-00"
+    >{% csrf_token %}
+        {% if form.non_field_errors %}
+            <div>
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        <p>
+            <label for="{{ form.name.id_for_label }}"
+            >
+                Name:
+            </label>
+            {{ form.name }}
+            {% if form.name.errors %}
+            <small>{{ form.name.errors }}</small>
+            {% endif %}
+        </p>
+
+        <p class="bg-black-60">
+            <label for="{{ form.image.id_for_label }}"
+            >
+                Image:
+            </label>
+            {{ form.image }}
+            
+            {% if form.image.errors %}
+                <small>{{ form.image.errors }}</small>
+            {% endif %}
+        </p>
+
+        <div id="image-preview-wrapper"
+        class="mb2-00"
+        >
+            <p><strong>Image preview</strong></p>
+            {% if deployment and deployment.image %}
+            <img
+                id="image-preview"
+                src="{{ deployment.image.url }}"
+                alt="Current deployment image"
+                style="max-width: 380px; 
+                height: auto; 
+                display: block; 
+                border: 1px solid #d3d3d3;"
+            >
+            {% else %}
+            <img
+                id="image-preview"
+                src=""
+                alt="Selected image preview"
+                style="max-width: 380px; 
+                height: auto; 
+                display: none; 
+                border: 1px solid #d3d3d3;"
+            >
+            <small id="image-preview-empty">No image selected.</small>
+            {% endif %}
+        </div>
+
+        <p>
+            <label for="{{ form.description.id_for_label }}"
+            >
+            Description:
+            </label>
+            <p>{{ form.description }}</p>
+            {% if form.description.errors %}
+            <small>{{ form.description.errors }}</small>
+            {% endif %}
+        </p>
+
+        <button type="submit"
+        class="pa0-25 b mb1-00 mr1-00 bw1 br0-25"
+        >
+            {{ submit_label }}
+        </button>
+        <a href="{% url 'deploy:home' %}"
+            class="red b ba b--black-50 br0-25 pa0-25"
+        >
+            cancel
+        </a>
+    </form>
+    <hr>
+  </main>
+
+  <script>
+    (function () {
+      var input = document.getElementById("{{ form.image.auto_id }}");
+      var preview = document.getElementById("image-preview");
+      var emptyState = document.getElementById("image-preview-empty");
+
+      if (!input || !preview) {
+        return;
+      }
+
+      input.addEventListener("change", function (event) {
+        var file = event.target.files && event.target.files[0];
+        if (!file) {
+          return;
+        }
+
+        var objectUrl = URL.createObjectURL(file);
+        preview.src = objectUrl;
+        preview.style.display = "block";
+
+        if (emptyState) {
+          emptyState.style.display = "none";
+        }
+      });
+    })();
+  </script>
+{% endblock %}

@@ -1,0 +1,274 @@
+/*----- IMPORTS -----*/
+
+	/* -----CUSTOM FONT STYLES ----- */
+	/* @import url("https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@400&family=Ubuntu&display=swap") */
+	/* --x--CUSTOM FONT STYLES --x-- */
+
+	/* ----- SYMBOLS / OTHER FONTS ----- */
+
+	/* --x-- SYMBOLS / OTHER FONTS --x-- */
+   
+	/* ----- CUSTOM COMPONENT STYLES  ----- */
+	 /* @import url("../CSS/Components/GDT_avatars. css");
+	@import url("../CSS/Components/GDT_thumbnails.css");
+    @import url("../CSS/Components/GDT_buttons.css");
+	@import url("./CSS/Components/GDT_dropdown.css");
+	@import url("../CSS/Components/GDT_cards.css");
+	@import url("../CSS/Components/GDT_badges.css");
+	@import url("../CSS/Components/GDT_tabs.css");
+	@import url("../CSS/Components/GDT_lists.css");
+	@import url("../CSS/Components/GDT_cascade_menu.css");
+	@import url("../CSS/Components/GDT_forms.css"); 
+    @import url("../CSS/Components/GDT_banners.css");                   
+	/* --x-- CUSTOM COMPONENT STYLES  --x-- */
+
+    /* ----- UTILITY STYLES ----- */
+    @import url(./Functional/Layout.css);
+    @import url(./Functional/Position.css);
+
+    @import url(./Functional/Size.css);
+    @import url(./Functional/Spacing.css);
+   
+    @import url(./Functional/Typography.css);
+
+    @import url(./Functional/Backgrounds.css);
+    @import url(./Functional/Borders.css);
+    @import url(./Functional/Colours.css);
+
+    @import url(./Functional/Effects.css);
+
+    
+    /* --x-- UTILITY STYLES --x-- */
+
+
+/*--x-- IMPORTS --x--*/
+    
+/* ----- Variables ----- */
+:root   {
+    /* 01 Theme Colors */
+    --white:rgb(240, 240, 240);
+    --grey:rgb(170, 170, 170);
+    --darkGrey:rgb(80, 80, 80);
+    --dark: rgb(10, 10, 10);
+    
+    --red:red;
+    --geolo: rgb(27, 27, 27); 
+    --gold: gold;
+    --primary: var(--red);
+    --secondry:var(--blue);
+    
+    --bgColour:var(--geolo);
+    --fontsColor:var(--white);
+
+    /* 02 Theme Gradients */
+    /* linear-gradient */
+    --linear-gradient-1: linear-gradient(90deg, rgb(0, 0, 0), rgb(255, 255, 255));
+    --linear-gradient-2: linear-gradient(45deg, rgb(240, 180, 14), rgb(207, 30, 30));
+
+    /* radial-gradient */
+    --radial-gradient-1: radial-gradient(circle, rgb(255,255,255) 20%, var(--dark) 60%);
+    --radial-gradient-2: radial-gradient(circle, rgb(230, 44, 44) 20%, var(--darkGrey) 60%);
+    
+    /* 03 Theme Fonts-Family */
+    --headingFonts: arial;
+    --bodyFonts: Tahoma;
+
+    /* 04 Theme Fonts-Sizes */
+    --verySmallFontSize:0.25rem;
+    --smallFontSize:0.5rem;
+    --baseFontSize: 1rem;
+    --largeFontSize:1.5rem;
+    --xlargeFontSize: 2rem;
+    --xxlargeFontSize:2.5rem;
+    --heading-1:var(--xxlargeFontSize);
+    --heading-2:var(--xlargeFontSize);
+    --heading-3:var(--largeFontSize);
+    --heading-4:var(--xlargeFontSize);
+    
+    
+}
+/* --x-- Variables --x-- */
+
+/* --xxxxxxxxxx-- DOCUMENT STYLES --xxxxxxxxxx--*/
+/* ----- CUSTOM LAYOUT STYLES  ----- */
+
+/*----- Main Headear Styles -----*/
+
+    
+/*.mainNav__Logo{
+     background: 
+    rgb(41, 41, 41) 
+    url(../Reosurces/Images/Logo_Images/GDB_Logo--large.png) 
+    no-repeat center right;
+    background-size: cover; */
+    /* text-indent: -90rem; 
+
+}*/
+
+/*--x-- Main Headear Styles --x--*/
+
+.o__banner
+{
+	background-repeat:no-repeat ;
+    background-size: cover;	
+}
+
+.o__banner__homepage
+{
+    background-image: url(../media/images/Landscape_Images/main_banner_2.jpg);
+    background-position: top right;
+	
+}
+.landingPage_CTA
+{
+    background-image: url(../media/images/Landscape_Images/d9c10f8daa50824e4d42953b8d3e7ff8.png);
+    background-position: bottom left;
+}
+
+.o__banner__homepage--countdown{
+    background-image: url(../media/images/Autodesk/Infotainment_2016_03.png);
+    background-position: center center;
+}
+.o__banner__homepage--core_capabilities{
+    background-image: url(../media/images/Autodesk/Infotainment_2016_03.png);
+    background-position: center center;
+}
+
+.o__banner__homepage--operating_models{
+    background-image: url(../media/images/Autodesk/Infotainment_2016_04.png);
+    background-position: center right;
+}
+
+.o__banner__homepage--talent_transformations{
+    background-image: url(../media/images/Autodesk/Infotainment_2016_02.png);
+    background-position: center right;
+}
+.o__banner--aboutUs
+{
+    background-image: url(../media/images/Autodesk/Infotainment_2016_03.png);
+    background-position: center right;
+	
+}
+.o__banner--services
+{
+    background-image: url(../media/images/Autodesk/Infotainment_2016_02.png);
+    background-position: center right;
+	
+}
+.o__banner--products
+{
+    background-image: url(../media/images/Autodesk/Infotainment_2016_03.png);
+    background-position: center left;
+	
+}
+
+.o__banner--projects
+{
+    background-image: url(../media/images/Autodesk/Infotainment_2016_04.png);
+    background-position: center left;
+	
+}
+.o__banner--contactUs
+{
+    background-image: url(../media/images/Autodesk/Infotainment_2016_05.png);
+    background-position: center left;
+	
+}
+
+.o__banner--careers
+{
+    background-image: url(../media/images/Autodesk/Infotainment_2016_05.png);
+    background-position: center left;
+	
+}
+
+.o-banner--aboutUs{
+    background-image: url(../media/images/Autodesk/Infotainment_2016_05.png);
+    background-position: center left;
+}
+/*.mainFooter .footerNav {
+    background-color: var(--dark);
+	display: grid;
+    grid-template-columns: repeat(2, 1fr);
+} 
+*/
+
+.gridLayout{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    height: 91vh;
+
+}
+
+.gridLayout > div{
+    overflow-y: scroll;
+}
+
+#mainBody .aside {
+    position: fixed;
+    top: 100px;
+    color: rgb(129, 116, 136);
+}
+.mainFooter .copyrights
+{
+	background-color: var(--gold);
+
+}
+/* --x-- Footer --x--*/    
+/* ----x--------- mainFooter --------x---- */
+/* --x-- CUSTOM LAYOUT STYLES  --x-- */
+
+[data-tab-content]{
+    display: none;
+}
+.active[data-tab-content]{
+    display: block;
+}
+
+/* ----- Mobo First Media Queries -----*/       
+
+@media(min-width:512px) { 
+    body{
+        background-color: rgb(255, 255, 255);
+    }
+
+    .subNav{
+        grid-template-columns: repeat(2,1fr);
+    }
+    .gridLayout{
+
+        grid-template-columns: 1.5fr 3fr 1fr;
+        
+    }
+}                 
+@media(min-width:768px) { 
+    body{
+        background-color: rgba(59, 27, 27, 0);
+    }
+
+    .m__ulist{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    }
+
+    .o__banner ul{
+        display: flex;
+    }
+}   
+@media(min-width:1024px) { 
+  body{
+        background-color: rgb(255, 255, 255);
+    }
+    .subNav{
+        grid-template-columns: repeat(4,1fr);
+    }  
+}
+@media(min-width:1280px) { 
+    body{
+        background-color: rgb(255, 255, 255);
+    }  
+}
+
+/* --x-- Mobo First Media Queries --x--*/

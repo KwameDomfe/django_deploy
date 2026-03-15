@@ -1,31 +1,93 @@
 {% extends "base.html" %}
-
-{% block title %}Deployment Dashboard{% endblock %}
+{% load static %}
+{% block title %}
+    Deployment Dashboard
+{% endblock %}
 {% block content %}
-<header>
-    page header
-    <h1>Deployment Dashboard</h1>
-</header>
-<main>
-    <hr>
-    <p>Welcome to the deployment page. Here you can find all the recent deployments.</p>
+    <header>
+        <h1>Deployments Dashboard</h1>
+    </header>
+    <main>
+        <hr>
 
-    {% for deployment in deployments %}
-        <a href="{% url 'deployment_detail' deployment.id %}" 
-        class="deployment-item"
-        >
-        <h2>{{ deployment.name }}</h2>
-        <p>{{ deployment.description|truncatechars:200 }}</p>
-        <small>Created at: {{ deployment.created_at }}</small>
-        </a>
-    {% endfor %}
+        <p>
+            Welcome to the deployment page. Here you can find all the recent deployments.
+        </p>
 
-    <hr> 
-</main>
+        <div class="bt bb mb-00 pv0-50 blue0">
+            <a href="{% url 'deploy:deployment_create' %}"
+                class="red"    
+            >
+                Create ...
+            </a>
+        </div>
 
-<footer>
-deploy page footer
-    <p>Copyright &copy; 2024</p>  
-</footer>
+        <ul class="grid gtc1 gtc2-m gtc3-l ggap1-00 mv2-00 bg-black-10">
+            {% for deployment in deployments %}
+                <li>
+                    <div class="h-100 shadow-5 pa1-00"
+                    >
+                        <div class=""
+                        >
+
+                            {% if deployment.image %}
+                                <img src="{{ deployment.image.url }}" 
+                                    alt="{{ deployment.name }} image"
+                                    class="cover h20-00 w-100"
+                                >
+                            {% endif %}
+
+                            <div class=" bg-black-40 ph0-50">
+                                <h2 class="white-90 pv1-00 mb0-00">
+                                    {{ deployment.name }}
+                                </h2>
+                                <p class="f1-25 h6-00 bg-black-10">
+                                    {{ deployment.description|truncatechars:100 }}
+                                </p>
+                                <small class="bb dib mb1-00">
+                                    Created at : {{ deployment.created_at }}
+                                </small>
+                                
+                            </div>
+
+                            <footer class="flex justify-between items-center ph0-50">
+                                <div class="pv0-50">
+                                    <a href="{{ deployment.get_absolute_url }}" 
+                                        class="red"
+                                    > 
+                                        Read more ...
+                                    </a>
+                                </div>
+                                <p class="pa0-50v mb0-00">
+                                    <a href="{% url 'deploy:deployment_update' deployment.slug %}"
+                                        class="red"
+                                    >
+                                        Edit
+                                    </a>
+                                    ||
+                                    <a href="{% url 'deploy:deployment_delete' deployment.slug %}"
+                                        class="red"
+                                    >Delete</a>
+                                </p>
+                            </footer>
+                            
+                        </div>      
+                    </div>
+                </li>
+            {% empty %}
+                <div>
+                    <p>No deployments yet.</p>
+                    <p>Create one to get started.</p>
+                </div>
+            {% endfor %} 
+        </ul> 
+             
+        <hr> 
+    </main>
+
+    <footer>
+        <p>Deployment Page Footer</p>
+        <p>Copyright &copy; 2024</p>  
+    </footer>
 
 {% endblock %}

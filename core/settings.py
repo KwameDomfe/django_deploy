@@ -23,7 +23,6 @@ print(f"SECRET_KEY: {get_random_secret_key()}")
 BASE_DIR = Path(__file__).resolve().parent.parent
 REPO_DIR = BASE_DIR.parent
 TEMPLATES_DIR = BASE_DIR / 'templates'
-TEMPLATES_DIR.mkdir(exist_ok=True, parents=True)  # Create the templates directory if it doesn't exist
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
@@ -42,7 +41,19 @@ SECRET_KEY = config(
 DEBUG = config(
     'DJANGO_DEBUG', 
     cast=bool, 
-    default=True 
+    default=True
+)
+
+SERVE_MEDIA = config(
+    'DJANGO_SERVE_MEDIA',
+    cast=bool,
+    default=DEBUG,
+)
+
+SERVE_STATIC = config(
+    'DJANGO_SERVE_STATIC',
+    cast=bool,
+    default=DEBUG,
 )
 
 ALLOWED_HOSTS = [
@@ -57,25 +68,69 @@ ALLOWED_HOSTS = [
 if DEBUG:
   ALLOWED_HOSTS = ["*"]
 
+
 # Cross Site Request Forgery (CSRF) Trusted Origins
 CSRF_TRUSTED_ORIGINS = [
-    "https://*.django-deploy-app-b6mm7.ondigitalocean.app",
+    "http://*.django-deploy-app-b6mm7.ondigitalocean.app",
+    "https://*.django--deploy-2r4wq.ondigitalocean.app/",
 ]
 
-
-
+# SECURE_HSTS_SECONDS = config(
+#     'SECURE_HSTS_SECONDS',
+#     cast=int,
+#     default=31536000 if not DEBUG else 0,
+# )
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = config(
+#     'SECURE_HSTS_INCLUDE_SUBDOMAINS',
+#     cast=bool,
+#     default=not DEBUG,
+# )
+# SECURE_HSTS_PRELOAD = config(
+#     'SECURE_HSTS_PRELOAD',
+#     cast=bool,
+#     default=not DEBUG,
+# )
+# SECURE_SSL_REDIRECT = config(
+#     'SECURE_SSL_REDIRECT',
+#     cast=bool,
+#     default=not DEBUG,
+# )
+# SESSION_COOKIE_SECURE = config(
+#     'SESSION_COOKIE_SECURE',
+#     cast=bool,
+#     default=not DEBUG,
+# )
+# CSRF_COOKIE_SECURE = config(
+#     'CSRF_COOKIE_SECURE',
+#     cast=bool,
+#     default=not DEBUG,
+# )
 
 # Application definition
 
-INSTALLED_APPS = [
+# Application definition
+DEFAULT_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.deploy',
 ]
+
+THIRD_PARTY_APPS = [
+    # add apps which you install using pip
+]
+
+LOCAL_APPS = [
+    # add local apps which you create using startapp
+    'apps.deploy',
+    'apps.accounts',
+]
+
+# Applications definition
+INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -120,6 +175,53 @@ DATABASES = {
     }
 }
 
+POSTGRES_DB = config(
+    "POSTGRES_DB", 
+    default="", 
+    cast=str
+)
+POSTGRES_PASSWORD = config(
+   "POSTGRES_PASSWORD", 
+    default="", 
+    cast=str
+)
+POSTGRES_USER = config(
+   "POSTGRES_USER", 
+    default="", 
+    cast=str
+)
+POSTGRES_HOST = config(
+    "POSTGRES_HOST", 
+    default="", 
+    cast=str
+)
+POSTGRES_PORT = config(
+    "POSTGRES_PORT", 
+    default="", 
+    cast=str
+)
+
+POSTGRES_READY = all([
+    POSTGRES_DB.strip(),
+    POSTGRES_PASSWORD.strip(),
+    POSTGRES_USER.strip(),
+    POSTGRES_HOST.strip(),
+    POSTGRES_PORT.strip(),
+])
+
+if POSTGRES_READY:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": POSTGRES_DB,
+            "USER": POSTGRES_USER,
+            "PASSWORD": POSTGRES_PASSWORD,
+            "HOST": POSTGRES_HOST,
+            "PORT": POSTGRES_PORT,
+        }
+    }
+
+
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
@@ -154,10 +256,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATIC_ROOT.mkdir(exist_ok=True, parents=True)
+# STATIC_ROOT.mkdir(exist_ok=True, parents=True)
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+# MEDIA_ROOT.mkdir(exist_ok=True, parents=True)
+
+LOGIN_URL = 'accounts:login'
+LOGIN_REDIRECT_URL = 'deploy:home'
+LOGOUT_REDIRECT_URL = 'deploy:home'

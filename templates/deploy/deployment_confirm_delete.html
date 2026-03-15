@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Delete Deployment{% endblock %}
+
+{% block content %}
+    <header class="pv2-00">
+        <h2>
+            You are about to Delete "<span class="red">{{ deployment.name }}</span>".
+        </h2>
+    </header>
+
+    <main>
+        <hr>
+        <p>
+        Are you sure you want to delete "<span class="red">{{ deployment.name }}</span>"?
+        </p>
+
+        <form method="post" class="mb1-00"
+        >{% csrf_token %}
+            <button type="submit" class="pa0-25 b mb1-00 mr1-00 bw1 br0-25">
+                Yes, delete
+            </button>
+            <a href="/deploy/" class="red b ba b--black-50 br0-25 pa0-25"
+            >
+                Cancel
+            </a>
+        </form>
+        <hr>
+    </main>
+    <footer>
+        <p>Delete Deployment Page Footer</p>
+    </footer>
+{% endblock %}
