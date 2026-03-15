@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 from pathlib import Path
 from decouple import config
 import dj_database_url
+from django.core.exceptions import ImproperlyConfigured
 
 
 from django.core.management.utils import get_random_secret_key
@@ -232,6 +233,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASE_URL = config('DATABASE_URL', default='', cast=str).strip()
+ALLOW_SQLITE_FALLBACK = config(
+    'ALLOW_SQLITE_FALLBACK',
+    cast=bool,
+    default=DEBUG,
+)
 
 SQLITE_FALLBACK_PATH = config(
     'SQLITE_PATH',
@@ -300,6 +306,15 @@ if DATABASE_URL and '<' not in DATABASE_URL and '>' not in DATABASE_URL:
             ssl_require=not DEBUG,
         )
     }
+
+if not DEBUG:
+    db_engine = DATABASES['default'].get('ENGINE', '')
+    if db_engine == 'django.db.backends.sqlite3' and not ALLOW_SQLITE_FALLBACK:
+        raise ImproperlyConfigured(
+            'Production database is not configured. Set DATABASE_URL (preferred) '
+            'or POSTGRES_* variables, or set ALLOW_SQLITE_FALLBACK=1 to allow '
+            'ephemeral SQLite usage.'
+        )
 
 
 # Password validation
