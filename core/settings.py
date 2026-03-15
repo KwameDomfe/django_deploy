@@ -41,7 +41,7 @@ SECRET_KEY = config(
 DEBUG = config(
     'DJANGO_DEBUG', 
     cast=bool, 
-    default=True
+    default=False
 )
 
 SERVE_MEDIA = config(
@@ -65,15 +65,73 @@ ALLOWED_HOSTS = [
     "localhost",
 ]
 
+env_allowed_hosts = config(
+    'DJANGO_ALLOWED_HOSTS',
+    default='',
+    cast=lambda v: [s.strip() for s in v.split(',') if s.strip()],
+)
+
+ALLOWED_HOSTS += [
+    host for host in env_allowed_hosts
+    if not host.startswith(('http://', 'https://')) and '/' not in host
+]
+
 if DEBUG:
-  ALLOWED_HOSTS = ["*"]
+    ALLOWED_HOSTS = ['*']
+
+ALLOWED_HOSTS = list(dict.fromkeys(ALLOWED_HOSTS))
 
 
 # Cross Site Request Forgery (CSRF) Trusted Origins
 CSRF_TRUSTED_ORIGINS = [
-    "http://*.django-deploy-app-b6mm7.ondigitalocean.app",
-    "https://*.django--deploy-2r4wq.ondigitalocean.app/",
+    'https://*.django-deploy-app-b6mm7.ondigitalocean.app',
+    'https://*.vercel.app',
 ]
+
+env_csrf_trusted_origins = config(
+    'DJANGO_CSRF_TRUSTED_ORIGINS',
+    default='',
+    cast=lambda v: [s.strip().rstrip('/') for s in v.split(',') if s.strip()],
+)
+
+CSRF_TRUSTED_ORIGINS += [
+    origin for origin in env_csrf_trusted_origins
+    if origin.startswith(('http://', 'https://'))
+]
+
+CSRF_TRUSTED_ORIGINS = list(dict.fromkeys(CSRF_TRUSTED_ORIGINS))
+
+SECURE_HSTS_SECONDS = config(
+    'SECURE_HSTS_SECONDS',
+    cast=int,
+    default=31536000 if not DEBUG else 0,
+)
+SECURE_HSTS_INCLUDE_SUBDOMAINS = config(
+    'SECURE_HSTS_INCLUDE_SUBDOMAINS',
+    cast=bool,
+    default=not DEBUG,
+)
+SECURE_HSTS_PRELOAD = config(
+    'SECURE_HSTS_PRELOAD',
+    cast=bool,
+    default=not DEBUG,
+)
+SECURE_SSL_REDIRECT = config(
+    'SECURE_SSL_REDIRECT',
+    cast=bool,
+    default=not DEBUG,
+)
+SESSION_COOKIE_SECURE = config(
+    'SESSION_COOKIE_SECURE',
+    cast=bool,
+    default=not DEBUG,
+)
+CSRF_COOKIE_SECURE = config(
+    'CSRF_COOKIE_SECURE',
+    cast=bool,
+    default=not DEBUG,
+)
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # SECURE_HSTS_SECONDS = config(
 #     'SECURE_HSTS_SECONDS',
