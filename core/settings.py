@@ -238,6 +238,11 @@ ALLOW_SQLITE_FALLBACK = config(
     cast=bool,
     default=DEBUG,
 )
+ENFORCE_DATABASE_URL = config(
+    'ENFORCE_DATABASE_URL',
+    cast=bool,
+    default=False,
+)
 
 SQLITE_FALLBACK_PATH = config(
     'SQLITE_PATH',
@@ -307,7 +312,7 @@ if DATABASE_URL and '<' not in DATABASE_URL and '>' not in DATABASE_URL:
         )
     }
 
-if not DEBUG:
+if not DEBUG and ENFORCE_DATABASE_URL:
     db_engine = DATABASES['default'].get('ENGINE', '')
     if db_engine == 'django.db.backends.sqlite3' and not ALLOW_SQLITE_FALLBACK:
         raise ImproperlyConfigured(
