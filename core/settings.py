@@ -54,7 +54,7 @@ SERVE_MEDIA = config(
 SERVE_STATIC = config(
     'DJANGO_SERVE_STATIC',
     cast=bool,
-    default=DEBUG,
+    default=True,
 )
 
 ALLOWED_HOSTS = [
