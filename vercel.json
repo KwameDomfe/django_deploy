@@ -1,14 +1,14 @@
 {
   "version": 2,
   "functions": {
-    "core/wsgi.py": {
+    "api/index.py": {
       "runtime": "@vercel/python@4.3.0"
     }
   },
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "core/wsgi.py"
+      "dest": "api/index.py"
     }
   ]
 }
