@@ -57,6 +57,7 @@ SERVE_STATIC = config(
 )
 
 ALLOWED_HOSTS = [
+    ".vercel.app",
     "django-deploy-app-b6mm7.ondigitalocean.app",
     "www.django-deploy-app-b6mm7.ondigitalocean.app",
     "project.kdadesign.tech",
@@ -75,6 +76,10 @@ ALLOWED_HOSTS += [
     host for host in env_allowed_hosts
     if not host.startswith(('http://', 'https://')) and '/' not in host
 ]
+
+vercel_url = config('VERCEL_URL', default='', cast=str).strip()
+if vercel_url:
+    ALLOWED_HOSTS.append(vercel_url)
 
 if DEBUG:
     ALLOWED_HOSTS = ['*']
